@@ -1,28 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Navbar from './components/navbar/navbar.jsx';
+import { Route } from 'react-router-dom';
+import HeroList from './components/heroList/heroList.jsx';
+import Settings from './components/settings/Settings.jsx';
+import AddHero from './components/addHero/AddHero.jsx';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	constructor() {
+		super();
+
+		this.state = {
+			appName: 'Hero Book',
+			heroList: [
+				{
+					name: 'Thor',
+					desc: 'God of party'
+				},
+				{
+					name: 'Jimbo',
+					desc: 'Starcraft nerd'
+				}
+			]
+		}
+	}
+
+  	render() {
+    	return (
+    		<>
+	      		<Navbar appName={this.state.appName}/>
+
+	      		<Route exact path="/"
+	      			render={(props) => <HeroList heroes={this.state.heroList}/>}/>
+	      			
+	      		<Route path="/addHero" component={AddHero}/>
+	      		<Route path="/settings" component={Settings}/>
+
+	  			
+    		</>
+    	);
+  	}
 }
 
 export default App;
